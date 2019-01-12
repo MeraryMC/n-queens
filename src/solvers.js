@@ -32,30 +32,15 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = 0; //fixme
+  //fixme
   //make solutionCount equal to 0
   //make new Board
-  var newBoard = new Board({n: n});
-      //note: colIndex = n = times we have to recurse thorugh tree
-  var rookToggler = function(rowIndex){
-    if (rowIndex === n){
-      solutionCount++;
-      return;
-    } else if (rowIndex < n){
-        for (let colIndex = 0; colIndex < n; colIndex++) {
-          newBoard.togglePiece(rowIndex, colIndex);
-          if (newBoard.hasAnyRooksConflicts() === false){
-            rookToggler(rowIndex + 1);
-          }
-          newBoard.togglePiece(rowIndex, colIndex);
-        }
-    }
-  }
-    rookToggler(0);
-    console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-    return solutionCount;
+  if (n === 1){
+    return 1;
+  } else {
+    return n * this.countNRooksSolutions(n - 1);
   };
-
+};
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
